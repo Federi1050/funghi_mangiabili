@@ -21,21 +21,22 @@ flask
 docker
 '''
 from it.combibrivioSPA.dataset.dataset_manager import DatasetManager
+from it.combibrivioSPA.machine_learning.regressione_logistica import RegLogistica
 
 print("Carico dataset")
 ds_mg = DatasetManager()
 print()
 
 print("stampa dataset")
-ds_mg.stampa()
+# ds_mg.stampa()
 print()
 
 print("Esplorazione del dataset")
-print(ds_mg.analisi())
+# print(ds_mg.analisi())
 print()
 
 print("Visualizzazione grafici")
-ds_mg.grafici()
+# ds_mg.grafici()
 print()
 
 print("pulisco dataset")
@@ -43,9 +44,31 @@ ds_mg.clean()
 print()
 
 print("stampa dataset dopo cleaning")
-ds_mg.stampa()
+# ds_mg.stampa()
 print()
 
 print("correlazione")
-print(ds_mg.correlazione())
+# print(ds_mg.correlazione())
+print()
+
+print("creazione modello regressione logistica")
+reg_log = RegLogistica(ds_mg.get_datatset())
+print()
+
+print("valutazione modello regressione logistica")
+# print(reg_log.get_val())
+print()
+
+# print(ds_mg.get_datatset().loc[5].to_dict())
+
+print("previsione per il dato")
+oggetto = [
+    ('cap-shape', 'x'), ('cap-surface', 'y'),('cap-color', 'y'), ('bruises', 't'),
+    ('odor', 'a'), ('gill-attachment', 'f'), ('gill-spacing', 'c'), ('gill-size', 'b'),
+    ('gill-color', 'n'), ('stalk-shape', 'e'), ('stalk-root', 'c'), ('stalk-surface-above-ring', 's'),
+    ('stalk-surface-below-ring', 's'), ('stalk-color-above-ring', 'w'), ('stalk-color-below-ring', 'w'),
+    ('veil-color', 'w'), ('ring-number', 'o'), ('ring-type', 'p'), ('spore-print-color', 'k'),
+    ('population', 'n'), ('habitat', 'g')
+]
+# print(reg_log.prevedi(oggetto))
 print()

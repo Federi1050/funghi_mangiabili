@@ -64,3 +64,6 @@ class DatasetManager:
 
     def correlazione(self):
         return self.__data_ana.correlazione(self.__dataset)
+
+    def get_datatset(self):
+        return self.__dataset

@@ -6,8 +6,8 @@ import pandas as pd
 class RegLogistica:
 
     def __init__(self ,data):
+        self.val_model = None
         self.set_mod(data)
-        self.val_model= None
 
     
     def set_mod(self, data):
@@ -20,7 +20,7 @@ class RegLogistica:
         drop_first=True
         )
 
-        self.feature_columns = X.columns
+        self.feature_columns = X.columns.tolist()
 
         # Suddivisione train/test
         X_train, X_test, y_train, y_test = train_test_split(
@@ -38,10 +38,10 @@ class RegLogistica:
         self.model= model 
         y_pred = model.predict(X_test)
 
-        self.val_model  = {
+        self.val_model = {
             "predizioni": y_pred.tolist(),
             "coeff": self.model.coef_.tolist(),
-            "intercetta": float(self.model.intercept_),
+            "intercetta": float(self.model.intercept_[0]),
             "Accuracy": accuracy_score(y_test, y_pred),
         }
         
@@ -58,10 +58,10 @@ class RegLogistica:
         df = pd.DataFrame([osservazione])
 
         # one-hot encoding identico al training
-        df = pd.get_dummies(df)
+        df = pd.get_dummies(df, drop_first=True)
 
         # riallineamento colonne (PASSAGGIO FONDAMENTALE)
-        df = df.reindex(self.feature_columns, fill_value=0)
+        df = df.reindex(columns=self.feature_columns, fill_value=0)
 
         return self.model.predict(df)
 

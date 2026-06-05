@@ -48,7 +48,7 @@ class DatasetAnalisi:
         # gestire nan 
         data.replace('?', np.nan)
         data["stalk-root"]=data["stalk-root"].fillna(data["stalk-root"].mode()[0])
-        data.loc[data["poisonous"].isin(["unknown edibility", "not recommended"]), "poisonous"] = "definitely poisonous"
+        # data.loc[data["poisonous"].isin(["unknown edibility", "not recommended"]), "poisonous"] = "definitely poisonous"
 
         # colonna con valori tutti iguali per ogni riga
         data = data.drop(columns=["veil-type"])
