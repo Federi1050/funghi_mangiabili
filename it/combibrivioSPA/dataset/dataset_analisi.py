@@ -1,4 +1,7 @@
-class Analisi:
+import numpy as np
+from scipy.stats import zscore
+
+class DatasetAnalisi:
 
     def outliers_iqr_per_col(self):
         result = {}
@@ -46,5 +49,6 @@ class Analisi:
 
     
 
+    
 
 
