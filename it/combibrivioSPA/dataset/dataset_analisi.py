@@ -49,4 +49,7 @@ class DatasetAnalisi:
         data["stalk-root"]=data["stalk-root"].fillna(data["stalk-root"].mode()[0])
         data.loc[data["poisonous"].isin(["unknown edibility", "not recommended"]), "poisonous"] = "definitely poisonous"
         return data
+
+    def normality(self, data):
+        return None
     

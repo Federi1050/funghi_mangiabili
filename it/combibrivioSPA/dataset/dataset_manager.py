@@ -39,9 +39,9 @@ class DatasetManager:
         }
 
     def normality(self):
-        # norm = self.__data_ana.normality(self.__dataset)
+        norm = self.__data_ana.normality(self.__dataset)
         return {
-            "normality": None
+            "normality": norm
         }
 
     def grafici(self):
