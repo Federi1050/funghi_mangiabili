@@ -45,3 +45,7 @@ print()
 print("stampa dataset dopo cleaning")
 ds_mg.stampa()
 print()
+
+print("correlazione")
+print(ds_mg.correlazione())
+print()
