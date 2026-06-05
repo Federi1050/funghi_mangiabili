@@ -5,7 +5,7 @@ from grafici import Grafici
 
 class DatasetManager:
     def __init__(self):
-        self.__dataset = None
+        self.__dataset = self.load()
         self.__data_ana = DatasetAnalisi()
         self.__grafici = Grafici()
 
