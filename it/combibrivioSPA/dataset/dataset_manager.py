@@ -1,7 +1,7 @@
 import pandas as pd
 from ucimlrepo import fetch_ucirepo
-from dataset_analisi import DatasetAnalisi
-from grafici import Grafici
+from it.combibrivioSPA.dataset.dataset_analisi import DatasetAnalisi
+from it.combibrivioSPA.dataset.grafici import Grafici
 
 class DatasetManager:
     def __init__(self):
@@ -18,29 +18,37 @@ class DatasetManager:
         y = mushroom.data.targets
 
         dataset = pd.concat((X, y), axis=1)
-        self.__dataset = dataset
+        return dataset
 
     def analisi(self):
-        val_nan = self.__data_ana.val_nan(self.__dataset)
-        val_strani = self.__data_ana.val_strani(self.__dataset)
-        outliers = self.__data_ana.outlier(self.__dataset)
+        val_nan = self.__data_ana.valori_nulli(self.__dataset)
+        val_strani = self.__data_ana.valori_stringhe(self.__dataset)
+        outliers = self.outlier()
         return {
             "val_nan": val_nan,
             "val_strani": val_strani,
-            "outliers": outliers
+            "outliers": None # visto che sono tutti categorici fissi (opzioni) non ha senso parlare di outliers
+        }
+
+    def outlier(self):
+        outl_iqr = self.__data_ana.outliers_iqr_per_col(self.__dataset)
+        outl_zscore = self.__data_ana.outliers_zscore_per_col(self.__dataset)
+        return {
+            "outl_iqr": outl_iqr,
+            "outl_zscore": outl_zscore
         }
 
     def normality(self):
-        norm = self.__data_ana.normality(self.__dataset)
+        # norm = self.__data_ana.normality(self.__dataset)
         return {
-            "normality": norm
+            "normality": None
         }
 
     def grafici(self):
-        correlation = self.__grafici.plot_correlation(self.__dataset)
+        correlation = None # self.__grafici.plot_correlation(self.__dataset)
         list_hist = []
         for col in self.__dataset.columns:
-            hist = self.__grafici.plot_hist(self.__dataset[col], col)
+            hist = self.__grafici.plot_hist(self.__dataset, col)
             list_hist.append(hist)
         return {
             "correlation": correlation,
