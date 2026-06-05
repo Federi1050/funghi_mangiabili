@@ -63,6 +63,8 @@ class DatasetAnalisi:
         return risultato
 
     def crames_v(self, x, y):
+        # si basa sul test del chi-quadrato
+        # misura associazione 2 var categoriche
         confusion_matrix = pd.crosstab(x, y)
         chi2 = chi2_contingency(confusion_matrix)[0]
         n = confusion_matrix.sum().sum()

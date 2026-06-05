@@ -20,10 +20,17 @@ implementa la random forset classification
 flask
 docker
 '''
-from it.combibrivioSPA.dataset.dataset_manager import DatasetManager
-from it.combibrivioSPA.machine_learning.regressione_logistica import RegLogistica
-from it.combibrivioSPA.machine_learning.random_forest import RndForest
 
+# from it.combibrivioSPA.dataset.dataset_manager import DatasetManager
+from it.combibrivioSPA.flask.flask_manager import FlaskManager
+# from it.combibrivioSPA.machine_learning.regressione_logistica import RegLogistica
+# from it.combibrivioSPA.machine_learning.random_forest import RndForest
+
+
+app = FlaskManager()
+app.run(host='0.0.0.0', port=5000, debug=True)
+
+'''
 print("Carico dataset")
 ds_mg = DatasetManager()
 print()
@@ -95,3 +102,4 @@ oggetto = [
 ]
 print(rnd_forest.prevedi(oggetto))
 print()
+'''
