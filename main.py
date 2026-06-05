@@ -22,6 +22,7 @@ docker
 '''
 from it.combibrivioSPA.dataset.dataset_manager import DatasetManager
 from it.combibrivioSPA.machine_learning.regressione_logistica import RegLogistica
+from it.combibrivioSPA.machine_learning.random_forest import RndForest
 
 print("Carico dataset")
 ds_mg = DatasetManager()
@@ -71,4 +72,26 @@ oggetto = [
     ('population', 'n'), ('habitat', 'g')
 ]
 # print(reg_log.prevedi(oggetto))
+print()
+
+print("creazione modello random forest")
+rnd_forest = RndForest(ds_mg.get_datatset())
+print()
+
+print("valutazione modello random forest")
+print(rnd_forest.get_val())
+print()
+
+print(ds_mg.get_datatset().loc[5].to_dict())
+
+print("previsione per il dato")
+oggetto = [
+    ('cap-shape', 'x'), ('cap-surface', 'y'),('cap-color', 'y'), ('bruises', 't'),
+    ('odor', 'a'), ('gill-attachment', 'f'), ('gill-spacing', 'c'), ('gill-size', 'b'),
+    ('gill-color', 'n'), ('stalk-shape', 'e'), ('stalk-root', 'c'), ('stalk-surface-above-ring', 's'),
+    ('stalk-surface-below-ring', 's'), ('stalk-color-above-ring', 'w'), ('stalk-color-below-ring', 'w'),
+    ('veil-color', 'w'), ('ring-number', 'o'), ('ring-type', 'p'), ('spore-print-color', 'k'),
+    ('population', 'n'), ('habitat', 'g')
+]
+print(rnd_forest.prevedi(oggetto))
 print()
