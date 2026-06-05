@@ -49,6 +49,13 @@ class DatasetAnalisi:
 
     
 
+    def clean_data(self, data):
+        data.drop_duplicates()
+        # gestione outlier   
+        # elimina caratteri strani
+        # gestire nan 
+        data.replace('?', np.nan)
+        data["stalk-root"]=data["stalk-root"].fillna(self.data["stalk-root"].mode()[0])
+        data.loc[data["poisonous"].isin(["unknown edibility", "not recommended"]), "poisonous"] = "definitely poisonous"
+        return data
     
-
-
