@@ -1,5 +1,6 @@
 import numpy as np
-from scipy.stats import zscore
+from scipy.stats import zscore, chi2_contingency
+import pandas as pd
 
 class DatasetAnalisi:
 
@@ -48,8 +49,30 @@ class DatasetAnalisi:
         data.replace('?', np.nan)
         data["stalk-root"]=data["stalk-root"].fillna(data["stalk-root"].mode()[0])
         data.loc[data["poisonous"].isin(["unknown edibility", "not recommended"]), "poisonous"] = "definitely poisonous"
+
+        # colonna con valori tutti iguali per ogni riga
+        data = data.drop(columns=["veil-type"])
+
         return data
 
+    def correlazione(self, data):
+        risultato = []
+        for x in data.columns:
+            for y in data.columns:
+                risultato.append(f"corr {x} {y} : {self.crames_v(data[x], data[y])}")
+        return risultato
+
+    def crames_v(self, x, y):
+        confusion_matrix = pd.crosstab(x, y)
+        chi2 = chi2_contingency(confusion_matrix)[0]
+        n = confusion_matrix.sum().sum()
+        r, k = confusion_matrix.shape
+        phi2 = chi2 / n
+        phi2corr = max(0, phi2 - ((k-1)*(r-1)) / (n-1))
+        rcorr = r - ((r-1)**2)/(n-1)
+        kcorr = k - ((k-1)**2)/(n-1)
+        return np.sqrt(phi2corr/ min((kcorr - 1), (rcorr-1)))
+
     def normality(self, data):
-        return None
-    
+        pass
+        # su dataset categorici non ha senso farlo

@@ -39,13 +39,14 @@ class DatasetManager:
         }
 
     def normality(self):
+        # su categorici non ha senso farla
         norm = self.__data_ana.normality(self.__dataset)
         return {
             "normality": norm
         }
 
     def grafici(self):
-        correlation = None # self.__grafici.plot_correlation(self.__dataset)
+        correlation = None # self.__grafici.plot_correlation(self.__dataset) impossibile fare su categorici
         list_hist = []
         for col in self.__dataset.columns:
             hist = self.__grafici.plot_hist(self.__dataset, col)
@@ -60,3 +61,6 @@ class DatasetManager:
 
     def stampa(self):
         print(self.__dataset)
+
+    def correlazione(self):
+        return self.__data_ana.correlazione(self.__dataset)
