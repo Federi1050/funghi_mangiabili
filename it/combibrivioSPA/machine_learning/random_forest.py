@@ -1,0 +1,75 @@
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+
+class RndForest:
+
+    def __init__(self ,data):
+        self.val_model = None
+        self.set_mod(data)
+
+    
+    def set_mod(self, data):
+        # Variabili esplicative e target
+        y = data["poisonous"]
+        
+        # feature categoriche
+        X = pd.get_dummies(
+        data.drop(columns=["poisonous"]),
+        drop_first=True
+        )
+
+        self.feature_columns = X.columns.tolist()
+
+        # Suddivisione train/test
+        X_train, X_test, y_train, y_test = train_test_split(
+            X,
+            y,
+            test_size=0.2,
+            random_state=42,
+            stratify=y
+        )
+        # Modello Random Forest
+        model = RandomForestClassifier(
+        n_estimators=500,   # numero di alberi
+        random_state=42
+        )
+
+        # Addestramento
+        model.fit(X_train, y_train)
+
+
+        self.model= model 
+        y_pred = model.predict(X_test)
+
+        # Valutazione
+        self.val_model = {
+        "predizioni": y_pred.tolist(),
+        "accuracy": accuracy_score(y_test, y_pred),
+
+        # opzionali ma utili:
+        "feature_importance": model.feature_importances_.tolist()
+        }
+        
+
+    def get_val(self):
+            return self.val_model
+    
+    def prevedi(self, osservazione):
+    
+        # se arriva lista di coppie -> dict
+        if isinstance(osservazione, list):
+            osservazione = dict(osservazione)
+
+        df = pd.DataFrame([osservazione])
+
+        # one-hot encoding identico al training
+        df = pd.get_dummies(df, drop_first=True)
+
+        # riallineamento colonne (PASSAGGIO FONDAMENTALE)
+        df = df.reindex(columns=self.feature_columns, fill_value=0)
+
+        return self.model.predict(df)
+
