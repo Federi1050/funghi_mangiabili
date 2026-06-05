@@ -1,11 +1,9 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
 class Grafici:
     def plot_correlation(self, data):
         corr = data.corr(numeric_only=True)
-
         fig = plt.figure(figsize=(10,6))
         sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
         plt.title("Matrice di correlazione")
@@ -18,7 +16,6 @@ class Grafici:
         plt.title(f"Distribuzione di {col}")
         plt.show()
         return fig
-
 
     def plot_distribution(self, data, col):
         fig = plt.figure(figsize=(6,4))
@@ -34,7 +31,6 @@ class Grafici:
         plt.show()
         return fig
 
-    
     def plot_box(self, data, col):
         fig = plt.figure(figsize=(6,4))
         sns.boxplot(y=data[col])

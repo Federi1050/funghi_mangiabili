@@ -37,11 +37,18 @@ class DatasetManager:
         }
 
     def grafici(self):
-        grafic = self.__grafici.correlazione(self.__dataset)
+        correlation = self.__grafici.plot_correlation(self.__dataset)
+        list_hist = []
+        for col in self.__dataset.columns:
+            hist = self.__grafici.plot_hist(self.__dataset[col], col)
+            list_hist.append(hist)
         return {
-            "grafic": grafic
+            "correlation": correlation,
+            "hist": list_hist
         }
 
     def clean(self):
-        self.__data_ana.clean(self.__dataset)
+        self.__dataset = self.__data_ana.clean_data(self.__dataset)
 
+    def stampa(self):
+        print(self.__dataset)

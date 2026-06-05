@@ -20,4 +20,28 @@ implementa la random forset classification
 flask
 docker
 '''
+from it.combibrivioSPA.dataset.dataset_manager import DatasetManager
 
+print("Carico dataset")
+ds_mg = DatasetManager()
+print()
+
+print("stampa dataset")
+ds_mg.stampa()
+print()
+
+print("Esplorazione del dataset")
+print(ds_mg.analisi())
+print()
+
+print("Visualizzazione grafici")
+ds_mg.grafici()
+print()
+
+print("pulisco dataset")
+ds_mg.clean()
+print()
+
+print("stampa dataset dopo cleaning")
+ds_mg.stampa()
+print()
