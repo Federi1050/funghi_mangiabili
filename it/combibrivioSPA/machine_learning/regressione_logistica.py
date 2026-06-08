@@ -38,11 +38,22 @@ class RegLogistica:
         self.model= model 
         y_pred = model.predict(X_test)
 
+        coeff_df = pd.DataFrame({
+            "variabile": X.columns,
+            "coefficiente": self.model.coef_[0]
+            })
+
+        # ordinamento per importanza assoluta
+        coeff_df["abs_coeff"] = coeff_df["coefficiente"].abs()
+        coeff_df = coeff_df.sort_values("abs_coeff", ascending=False)
+
+
         self.val_model = {
             "predizioni": y_pred.tolist(),
-            "coeff": self.model.coef_.tolist(),
+            "coeff": coeff_df[["variabile", "coefficiente"]].to_dict("records"),
             "intercetta": float(self.model.intercept_[0]),
             "Accuracy": accuracy_score(y_test, y_pred),
+            
         }
         
 
