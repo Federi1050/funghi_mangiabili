@@ -43,13 +43,23 @@ class RndForest:
         self.model= model 
         y_pred = model.predict(X_test)
 
+        importance_df = pd.DataFrame({
+            "variabile": X.colums,
+            "feature_importance": model.feature_importances_
+        })
+
+        importance_df = importance_df.sort_values(
+            by="feature_importance",
+            ascending=False
+        )
+
         # Valutazione
         self.val_model = {
         "predizioni": y_pred.tolist(),
         "accuracy": accuracy_score(y_test, y_pred),
 
         # opzionali ma utili:
-        "feature_importance": model.feature_importances_.tolist()
+        "feature_importance": importance_df.to_dict("records")
         }
         
 
