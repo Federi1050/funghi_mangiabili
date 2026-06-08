@@ -47,7 +47,6 @@ class RegLogistica:
         coeff_df["abs_coeff"] = coeff_df["coefficiente"].abs()
         coeff_df = coeff_df.sort_values("abs_coeff", ascending=False)
 
-
         self.val_model = {
             "predizioni": y_pred.tolist(),
             "coeff": coeff_df[["variabile", "coefficiente"]].to_dict("records"),

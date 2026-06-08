@@ -19,6 +19,9 @@ class DatasetManager:
 
         dataset = pd.concat((X, y), axis=1)
         return dataset
+    
+    def set_data(self, data):
+        self.__dataset = data
 
     def analisi(self):
         val_nan = self.__data_ana.valori_nulli(self.__dataset)
@@ -67,3 +70,5 @@ class DatasetManager:
 
     def get_datatset(self):
         return self.__dataset
+    
+    
