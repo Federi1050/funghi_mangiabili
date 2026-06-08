@@ -118,6 +118,10 @@ class FlaskManager(object):
                 ('population', data.get('population')),
                 ('habitat', data.get('habitat'))
             ]
+            
+            pred = self.reg_log.prevedi(obj)
+            print("PREDIZIONE:", pred)
+
             return jsonify({"poisonus": self.reg_log.prevedi(obj).tolist()})
 
         @self.app.route('/previsione_rndForest', methods=['POST'])

@@ -67,7 +67,7 @@ class RegLogistica:
         df = pd.DataFrame([osservazione])
 
         # one-hot encoding identico al training
-        df = pd.get_dummies(df, drop_first=True)
+        df = pd.get_dummies(df)
 
         # riallineamento colonne (PASSAGGIO FONDAMENTALE)
         df = df.reindex(columns=self.feature_columns, fill_value=0)
