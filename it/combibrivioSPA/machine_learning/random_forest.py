@@ -59,7 +59,7 @@ class RndForest:
         "accuracy": accuracy_score(y_test, y_pred),
 
         # opzionali ma utili:
-        "feature_importance": importance_df["variabile","feature_importance"].to_dict("records")
+        "feature_importance": importance_df[["variabile","feature_importance"]].to_dict("records")
         }
         
 
