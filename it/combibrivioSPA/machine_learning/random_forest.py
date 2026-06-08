@@ -44,7 +44,7 @@ class RndForest:
         y_pred = model.predict(X_test)
 
         importance_df = pd.DataFrame({
-            "variabile": X.colums,
+            "variabile": X.columns,
             "feature_importance": model.feature_importances_
         })
         importance_df["abs_importance"] = importance_df["feature_importance"].abs()
